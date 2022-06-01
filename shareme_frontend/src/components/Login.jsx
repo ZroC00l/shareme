@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, NavigationType, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleLogin } from "@react-oauth/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -8,11 +8,8 @@ import jwt_decode from "jwt-decode";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 
-import { client } from "../client";
-
 const Login = () => {
   const navigate = useNavigate();
-
   const responseGoogleSuccess = (response) => {
     //console.log(response.string);
     //console.log("authentication has failed");
@@ -25,13 +22,10 @@ const Login = () => {
 
     const doc = {
       _id: sub,
-      _type: "user",
-      userName: given_name,
-      image: picture,
+      _type: given_name,
+      picture: picture,
     };
-    client.createIfNotExists(doc).then(() => {
-      navigate("/", { replace: true });
-    });
+    navigate("/"); //on successful login go to homepage
   };
 
   const responseGoogleFailure = () => {
