@@ -3,14 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleLogin } from "@react-oauth/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 
 const Login = () => {
-  const responseGoogle = (response) => {
-    console.log(response);
+  const responseGoogleSuccess = (response) => {
+    //console.log(response.string);
     //console.log("authentication has failed");
+    console.log("Encoded JWT ID Token: " + response);
+    var decoded = jwt_decode(response.credential);
+    console.log(decoded);
+    //console.log("authentication has passed");
+    //localStorage.setItem("user", JSON.stringify(response.profileObj));
+    //const { name, googleId, imageUrl } = response.profileObj;
+  };
+
+  const responseGoogleFailure = () => {
+    console.log("authentication has failed");
   };
 
   return (
@@ -31,7 +42,7 @@ const Login = () => {
           </div>
           <div className="shadow-2xl">
             <GoogleOAuthProvider
-              clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
+              clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
             >
               <GoogleLogin
                 render={(renderProps) => (
@@ -45,8 +56,9 @@ const Login = () => {
                     Sign in with Google
                   </button>
                 )}
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
+                auto_select="false"
+                onSuccess={responseGoogleSuccess}
+                onFailure={responseGoogleFailure}
                 cookiePolicy={"single_host_origin"}
               />
             </GoogleOAuthProvider>
