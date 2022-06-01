@@ -8,16 +8,30 @@ import jwt_decode from "jwt-decode";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 
+import { client } from "../client";
+
 const Login = () => {
+  const navigate = useNavigate();
+
   const responseGoogleSuccess = (response) => {
     //console.log(response.string);
     //console.log("authentication has failed");
-    console.log("Encoded JWT ID Token: " + response);
+    console.log("Encoded JWT ID Token: " + response.credential);
     var decoded = jwt_decode(response.credential);
     console.log(decoded);
     //console.log("authentication has passed");
-    //localStorage.setItem("user", JSON.stringify(response.profileObj));
-    //const { name, googleId, imageUrl } = response.profileObj;
+    localStorage.setItem("user", JSON.stringify(response.credential));
+    const { given_name, picture, sub } = response.credential;
+
+    const doc = {
+      _id: sub,
+      _type: "user",
+      userName: given_name,
+      image: picture,
+    };
+    client.createIfNotExists(doc).then(() => {
+      navigate("/", { replace: true });
+    });
   };
 
   const responseGoogleFailure = () => {
