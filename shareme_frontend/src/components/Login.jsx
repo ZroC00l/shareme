@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, NavigationType, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleLogin } from "@react-oauth/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -18,14 +18,17 @@ const Login = () => {
     console.log(decoded);
     //console.log("authentication has passed");
     localStorage.setItem("user", JSON.stringify(response.credential));
-    const { given_name, picture, sub } = response.credential;
+    const { given_name, picture, aud } = response.credential;
 
     const doc = {
-      _id: sub,
-      _type: given_name,
-      picture: picture,
+      _id: aud,
+      _type: "user",
+      name: given_name,
+      image: picture,
     };
-    navigate("/"); //on successful login go to homepage
+    if (responseGoogleSuccess) {
+      navigate("/"); //on successful login go to homepage
+    }
   };
 
   const responseGoogleFailure = () => {
