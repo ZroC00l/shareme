@@ -10,7 +10,7 @@ import logo from "../assets/logowhite.png";
 const Login = () => {
   const responseGoogle = (response) => {
     console.log(response);
-    console.log("authentication has failed");
+    //console.log("authentication has failed");
   };
 
   return (
@@ -30,9 +30,10 @@ const Login = () => {
             <img src={logo} width="130px" alt="logo" />
           </div>
           <div className="shadow-2xl">
-            <GoogleOAuthProvider>
+            <GoogleOAuthProvider
+              clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
+            >
               <GoogleLogin
-                clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
                 render={(renderProps) => (
                   <button
                     type="button"
