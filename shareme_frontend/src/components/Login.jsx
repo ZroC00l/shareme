@@ -15,17 +15,26 @@ const Login = () => {
   const responseGoogleSuccess = (response) => {
     //console.log(response.string);
     //console.log("authentication has failed");
+
+    console.log("This is the actual response object");
+    console.log(response);
+
+    console.log("This is the encoded Credentials");
     console.log("Encoded JWT ID Token: " + response.credential);
     var decoded = jwt_decode(response.credential);
+    console.log("This is the decoded data ");
     console.log(decoded);
-    //console.log("authentication has passed");
-    localStorage.setItem("user", JSON.stringify(response.credential));
-    const { given_name, picture } = response.credential;
+    /*Testing output from credentials JWT response
+    //console.log(decoded.name + "Deez Nutz");*/
+
+    localStorage.setItem("user", JSON.stringify(jwt_decode(response.decoded)));
+
+    const { name, picture } = decoded;
 
     const doc = {
       _id: process.env.REACT_APP_GOOGLE_API_TOKEN,
       _type: "user",
-      Username: given_name,
+      userName: name,
       image: picture,
     };
 
@@ -70,6 +79,7 @@ const Login = () => {
                     Sign in with Google
                   </button>
                 )}
+                theme="filled_blue"
                 auto_select="false"
                 onSuccess={responseGoogleSuccess}
                 onFailure={responseGoogleFailure}
