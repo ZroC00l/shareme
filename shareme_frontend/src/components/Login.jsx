@@ -23,12 +23,9 @@ const Login = () => {
     const doc = {
       _id: aud,
       _type: "user",
-      name: given_name,
+      Username: given_name,
       image: picture,
     };
-    if (responseGoogleSuccess) {
-      navigate("/"); //on successful login go to homepage
-    }
   };
 
   const responseGoogleFailure = () => {
