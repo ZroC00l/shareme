@@ -8,6 +8,8 @@ import jwt_decode from "jwt-decode";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 
+import { client } from "../client";
+
 const Login = () => {
   const navigate = useNavigate();
   const responseGoogleSuccess = (response) => {
@@ -18,14 +20,18 @@ const Login = () => {
     console.log(decoded);
     //console.log("authentication has passed");
     localStorage.setItem("user", JSON.stringify(response.credential));
-    const { given_name, picture, aud } = response.credential;
+    const { given_name, picture } = response.credential;
 
     const doc = {
-      _id: aud,
+      _id: process.env.REACT_APP_GOOGLE_API_TOKEN,
       _type: "user",
       Username: given_name,
       image: picture,
     };
+
+    client.createIfNotExists(doc).then(() => {
+      navigate("/", { replace: true });
+    });
   };
 
   const responseGoogleFailure = () => {
