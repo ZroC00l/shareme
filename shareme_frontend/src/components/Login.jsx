@@ -27,7 +27,7 @@ const Login = () => {
     /*Testing output from credentials JWT response
     //console.log(decoded.name + "Deez Nutz");*/
 
-    localStorage.setItem("user", JSON.stringify(jwt_decode(response.decoded)));
+    localStorage.setItem("user", JSON.stringify(decoded));
 
     const { name, picture } = decoded;
 
