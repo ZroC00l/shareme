@@ -29,17 +29,17 @@ const Login = () => {
 
     localStorage.setItem("user", JSON.stringify(decoded));
 
-    const { name, picture } = decoded;
+    const { name, picture, jti } = decoded;
 
     const doc = {
-      _id: process.env.REACT_APP_GOOGLE_API_TOKEN,
+      _id: jti,
       _type: "user",
       userName: name,
       image: picture,
     };
 
     client.createIfNotExists(doc).then(() => {
-      navigate("/", { replace: true });
+      navigate("/", { replace: false });
     });
   };
 
