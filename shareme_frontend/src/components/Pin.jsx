@@ -7,12 +7,15 @@ import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 
 import { client } from "../client";
 import { urlFor } from "../client";
+import { fetchUser } from "../utils/fetchUser";
 
 const Pin = ({ pin: { postedBy, image, _id, destination } }) => {
   const navigate = useNavigate();
+  const userInfo = fetchUser();
 
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
+  const [alreadySaved, setAlreadySaved] = useState(false);
 
   return (
     <div className="m-2">
@@ -43,6 +46,11 @@ const Pin = ({ pin: { postedBy, image, _id, destination } }) => {
                   <MdDownloadForOffline />
                 </a>
               </div>
+              {alreadySaved?.length !== 0 ? (
+                <button>Saved</button>
+              ) : (
+                <button>Save</button>
+              )}
             </div>
           </div>
         )}
