@@ -50,7 +50,41 @@ const CreatePin = ({ user }) => {
           console.log("Image upload error", error);
         });
     } else {
+      setLoading(false);
       setWrongImagetype(true);
+    }
+  };
+
+  const handleUpload = () => {
+    if (title && about && destination && imageAsset?._id && category) {
+      const doc = {
+        _type: "pin",
+        title,
+        about,
+        destination,
+        image: {
+          _type: "image",
+          asset: {
+            _type: "reference",
+            _ref: imageAsset._id,
+          },
+        },
+        userId: user._id,
+        postedBy: {
+          _type: "postedBy",
+          _ref: user._id,
+        },
+        category,
+      };
+      client.create(doc).then(() => {
+        navigate("/");
+      });
+    } else {
+      setFields(true);
+
+      setTimeout(() => {
+        setFields(false);
+      }, 2000);
     }
   };
 
@@ -87,9 +121,66 @@ const CreatePin = ({ user }) => {
                 />
               </label>
             ) : (
-              <p>Something else</p>
+              /*(
+              /If the imageAsset is already uploaded then do something else
+              <div className="relative h-full">
+                <img
+                  src={imageAsset?.url}
+                  alt="user-post"
+                  className="h-full w-full"
+                />
+                <button
+                  type="button"
+                  className="absolute bottom-3 right-3 p-3 rounded-full bg-white text-lg cursor-pointer outline-none hover:shadow-md transition-all duration-500 "
+                >
+                  <MdDelete />
+                </button>
+
+                <button
+                  onClick={handleUpload}
+                  type="button"
+                  className="absolute bottom-3 left-3 p-3 bg-green-500 p-3 hover:bg-green-700 text-white rounded-full font-bold px-4 py-2"
+                >
+                  Upload
+                </button>
+              </div>
+            )}*/
+              <div className="relative h-full">
+                <img
+                  src={imageAsset?.url}
+                  alt="user-post"
+                  className="w-full h-full"
+                />
+                <button
+                  type="button"
+                  onClick={() => setImageAsset(null)}
+                  className="absolute bottom-3 right-3 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out"
+                >
+                  <MdDelete />
+                </button>
+              </div>
             )}
           </div>
+        </div>
+
+        <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Add a title to your Pin"
+            className="outline-none text-2xl sm:text-3xl font-bold border-b-2 border-gray-200 p-2"
+          />
+          {user && (
+            <div className="flex gap-2 mt-2 mb-2 items-center bg-white rounded-lg">
+              <img
+                src={user.image}
+                alt=""
+                className=" w-10 h-10 rounded-full"
+              />
+              <p className="font-bold">{user.userName}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
