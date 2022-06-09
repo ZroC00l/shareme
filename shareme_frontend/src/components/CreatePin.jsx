@@ -13,12 +13,27 @@ const CreatePin = ({ user }) => {
   const [about, setAbout] = useState("");
   const [destination, setDestination] = useState("");
   const [loading, setLoading] = useState(false);
-  const [fields, setFields] = useState(null);
+  const [fields, setFields] = useState(false);
   const [category, setCategory] = useState(null);
   const [imageAsset, setImageAsset] = useState(null);
   const [wrongImagetype, setWrongImagetype] = useState(false);
 
-  return <div>CreatePin</div>;
+  const navigate = useNavigate();
+
+  return (
+    <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5 ">
+      {fields && (
+        <p className="text-red-500 mb-5 text-xl transition-full duration-150 ease-in">
+          Please fill in all the fields
+        </p>
+      )}
+      <div className="flex lg:flex-col flex-row justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5 w-full">
+        <div className="bg-secondaryColor p-3 flex flex flex-0.7 w-full">
+          <div className="flex justify-center items-center flex-col border-2 border-dotted border-gray-300 p-3 w-full h-420"></div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default CreatePin;
