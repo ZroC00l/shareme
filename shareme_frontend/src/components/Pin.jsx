@@ -51,6 +51,12 @@ const Pin = ({ pin }) => {
     }
   };
 
+  const deletePin = (id) => {
+    client.delete(id).them(() => {
+      window.location.reload();
+    });
+  };
+
   return (
     <div className="m-2">
       <div
@@ -98,7 +104,7 @@ const Pin = ({ pin }) => {
               )}
             </div>
             <div className="flex justify-between items-center gap-2 w-full">
-              {destination?.slice(8).length > 0 ? (
+              {destination && (
                 <a
                   href={destination}
                   target="_blank"
@@ -106,14 +112,18 @@ const Pin = ({ pin }) => {
                   rel="noreferrer"
                 >
                   <BsFillArrowUpRightCircleFill />
-                  {destination.slice(8, 17)}...
+                  {destination.length > 20
+                    ? destination.slice(8, 20)
+                    : destination.slice(8)}
                 </a>
-              ) : undefined}
-              {postedBy._id === user?.jti && (
+              )}
+              {/*Only the user that posted the image can delete the Pin  */}
+              {postedBy?._id === user?.jti && (
                 <button
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
+                    deletePin(_id);
                   }}
                   className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
                 >
