@@ -26,6 +26,7 @@ const Pin = ({ pin }) => {
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
   const savePin = (id) => {
+    //if its not already saved then trigger the savingPost state
     if (alreadySaved?.length === 0) {
       setSavingPost(true);
 
@@ -34,7 +35,7 @@ const Pin = ({ pin }) => {
         .setIfMissing({ save: [] })
         .insert("after", "save[-1]", [
           {
-            _key: uuidv4(),
+            _key: uuidv4(), //generate a unique ID
             userId: user?.jti,
             postedBy: {
               _type: "postedBy",
