@@ -11,11 +11,11 @@ const CreatePin = ({ user }) => {
   // state fields
   const [title, setTitle] = useState("");
   const [about, setAbout] = useState("");
-  const [destination, setDestination] = useState("");
+  const [destination, setDestination] = useState();
   const [loading, setLoading] = useState(false);
-  const [fields, setFields] = useState(false);
-  const [category, setCategory] = useState(null);
-  const [imageAsset, setImageAsset] = useState(null);
+  const [fields, setFields] = useState();
+  const [category, setCategory] = useState();
+  const [imageAsset, setImageAsset] = useState();
   const [wrongImagetype, setWrongImagetype] = useState(false);
 
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const CreatePin = ({ user }) => {
           _type: "image",
           asset: {
             _type: "reference",
-            _ref: imageAsset._id,
+            _ref: imageAsset?._id,
           },
         },
         userId: user._id,
