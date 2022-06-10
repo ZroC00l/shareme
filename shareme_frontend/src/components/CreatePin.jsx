@@ -78,7 +78,7 @@ const CreatePin = ({ user }) => {
       };
       client.create(doc).then(() => {
         navigate("/");
-        window.location.reload();
+        window.location.reload(true); /// have to look into this metho call, window not refreshing after successful upload
       });
     } else {
       setFields(true);
