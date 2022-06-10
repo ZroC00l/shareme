@@ -8,13 +8,12 @@ import { feedQuery, searchQuery } from "../utils/data";
 
 const Feed = () => {
   const [loading, setLoading] = useState(false);
-  const [pins, setPins] = useState(null);
+  const [pins, setPins] = useState();
   const { categoryId } = useParams();
 
   useEffect(() => {
-    setLoading(true);
-
     if (categoryId) {
+      setLoading(true);
       const query = searchQuery(categoryId);
 
       client.fetch(query).then((data) => {
@@ -29,8 +28,11 @@ const Feed = () => {
     }
   }, [categoryId]);
 
+  const idea = categoryId || "new";
   if (loading) {
-    return <Spinner message="We are adding new ideas to your feed!" />;
+    return (
+      <Spinner message={`We are adding new ${idea} ideas to your feed!`} />
+    );
   }
 
   return <div>{pins && <MasonryLayout pins={pins} />}</div>;

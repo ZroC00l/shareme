@@ -1,7 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Navbar, CreatePin, Search, Feed, PinDetail } from "../components";
+import {
+  Navbar,
+  CreatePin,
+  Search,
+  Feed,
+  PinDetail,
+  Category,
+} from "../components";
 
 const Pins = ({ user }) => {
   /*This state is placed in Pins and not Search component, because it will be shared 

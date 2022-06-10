@@ -72,8 +72,19 @@ export const userQuery = (userId) => {
   return query;
 };
 
+//Query to retrieve category seleceted
+export const pinQuery = (category) => {
+  const query = `*[_type == "pin" && category == '${category}*']{
+    image{
+      asset->{url}
+    }
+  }`;
+
+  return query;
+};
+
 export const searchQuery = (searchTerm) => {
-  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match]{
+  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*']{
 
     image{
       asset->{url}
@@ -98,22 +109,25 @@ export const searchQuery = (searchTerm) => {
   return query;
 };
 
-export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) { image{
-  asset->{url}
-},
-
-_id,
-destination,
-postedBy ->{
-  _id,
-  userName,
-  image
-},
-save[]{
-  _key,
-  postedBy ->{
-    id_,
-    userName,
-    image
+export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
+  image{
+    asset->{
+      url
+    }
   },
-},}`;
+      _id,
+      destination,
+      postedBy->{
+        _id,
+        userName,
+        image
+      },
+      save[]{
+        _key,
+        postedBy->{
+          _id,
+          userName,
+          image
+        },
+      },
+    } `;
