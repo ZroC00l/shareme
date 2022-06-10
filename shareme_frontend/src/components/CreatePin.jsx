@@ -121,30 +121,6 @@ const CreatePin = ({ user }) => {
                 />
               </label>
             ) : (
-              /*(
-              /If the imageAsset is already uploaded then do something else
-              <div className="relative h-full">
-                <img
-                  src={imageAsset?.url}
-                  alt="user-post"
-                  className="h-full w-full"
-                />
-                <button
-                  type="button"
-                  className="absolute bottom-3 right-3 p-3 rounded-full bg-white text-lg cursor-pointer outline-none hover:shadow-md transition-all duration-500 "
-                >
-                  <MdDelete />
-                </button>
-
-                <button
-                  onClick={handleUpload}
-                  type="button"
-                  className="absolute bottom-3 left-3 p-3 bg-green-500 p-3 hover:bg-green-700 text-white rounded-full font-bold px-4 py-2"
-                >
-                  Upload
-                </button>
-              </div>
-            )}*/
               <div className="relative h-full">
                 <img
                   src={imageAsset?.url}
@@ -175,12 +151,51 @@ const CreatePin = ({ user }) => {
             <div className="flex gap-2 mt-2 mb-2 items-center bg-white rounded-lg">
               <img
                 src={user.image}
-                alt=""
+                alt="imagePostedByUser"
                 className=" w-10 h-10 rounded-full"
               />
               <p className="font-bold">{user.userName}</p>
             </div>
           )}
+          <input
+            type="text"
+            value={about}
+            onChange={(e) => setAbout(e.target.value)}
+            placeholder="Tell us more about your Pin"
+            className="outline-none text-lg sm:text-xl font-bold border-b-2 border-gray-200 p-2"
+          />
+          <input
+            type="url"
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+            placeholder="Add a destination to your Pin"
+            className="outline-none text-lg sm:text-xl font-bold border-b-2 border-gray-200 p-2"
+          />
+          <div class="flex flex-col">
+            <div>
+              <p className="mb-2 font-semibold text:lg sm:text-xl">
+                Choose Pin Category
+              </p>
+              <select
+                onChange={(e) => setCategory(e.target.value)}
+                className="outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
+              >
+                <option className="sm:text-bg bg-white">Select Category</option>
+                {categories.map((item) => (
+                  <option>{item.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex justify-end items-end mt-5">
+              <button
+                type="button"
+                className="bg-red-500 text-white font-bold p-2 rounded-full w-28 outline-none"
+                onClick={handleUpload}
+              >
+                Upload
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
