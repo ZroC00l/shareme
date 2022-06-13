@@ -13,9 +13,9 @@ import { pinDetailMorePinQuery, pinDetailQuery } from "../utils/data";
 
 const PinDetail = ({ user }) => {
   const { pinId } = useParams();
-  const [pins, setPins] = useState();
-  const [comment, setComment] = useState();
-  const [pinDetail, setPinDetail] = useState();
+  const [pins, setPins] = useState("");
+  const [comment, setComment] = useState("");
+  const [pinDetail, setPinDetail] = useState("");
   const [addingComment, setAddingComment] = useState(false);
 
   //fetchingPinDetails
@@ -62,7 +62,7 @@ const PinDetail = ({ user }) => {
           setComment("");
           setAddingComment(false);
         });
-      //window.location.reload();
+      window.location.reload(true);
     }
   };
 
@@ -124,7 +124,7 @@ const PinDetail = ({ user }) => {
                   key={item.comment}
                 >
                   <img
-                    src={item?.postedBy.image}
+                    src={item.postedBy?.image}
                     alt="user-profile"
                     className="w-10 h-10 rounded-full cursor-pointer"
                   />
