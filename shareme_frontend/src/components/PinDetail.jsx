@@ -95,7 +95,7 @@ const PinDetail = ({ user }) => {
                 </a>
               </div>
               <a href={pinDetail.destination} target="_blank" rel="noreferrer">
-                {pinDetail.destination?.slice(8)}
+                {pinDetail.destination?.slice(8, 30)}
               </a>
             </div>
             <div>
@@ -104,9 +104,12 @@ const PinDetail = ({ user }) => {
               </h1>
               <p className="mt-3">{pinDetail.about}</p>
             </div>
-            <Link>
+            <Link
+              to={`/user-profile/${pinDetail?.postedBy._id}`}
+              className="flex gap-2 mt-5 items-center bg-white rounded-lg "
+            >
               <img
-                src={pinDetail?.postedBy.userName}
+                src={pinDetail?.postedBy.image}
                 alt="user-post"
                 className="w-10 h-10 rounded-full"
               />
@@ -131,7 +134,7 @@ const PinDetail = ({ user }) => {
                 </div>
               ))}
             </div>
-            <div>
+            <div className="flex flex-wrap mt-6 gap-3">
               <Link to={`/user-profile/${user?._id}`}>
                 <img
                   src={user.image}
@@ -141,7 +144,8 @@ const PinDetail = ({ user }) => {
               </Link>
               <input
                 className="flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300"
-                value="text"
+                value={comment}
+                type="text"
                 placeholder="Add a comment"
                 onChange={(e) => setComment(e.target.value)}
               />
@@ -150,18 +154,17 @@ const PinDetail = ({ user }) => {
                 className="bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
                 onClick={addComment}
               >
-                {addingComment ? "Adding..." : "Add"}
+                {addingComment ? "Adding..." : "Added"}
               </button>
             </div>
           </div>
         </div>
       )}
-      {pins?.length >
-        0(
-          <h2 text-center font-bold text-2xl mt-8 mb-4>
-            More like this
-          </h2>
-        )}
+      {pins?.length > 0 && (
+        <h2 text-center font-bold text-2xl mt-8 mb-4>
+          More like this
+        </h2>
+      )}
       {pins ? (
         <MansoryLayout pins={pins} />
       ) : (
