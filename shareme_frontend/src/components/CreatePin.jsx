@@ -11,7 +11,7 @@ const CreatePin = ({ user }) => {
   // state fields
   const [title, setTitle] = useState("");
   const [about, setAbout] = useState("");
-  const [destination, setDestination] = useState();
+  const [destination, setDestination] = useState("");
   const [loading, setLoading] = useState(false);
   const [fields, setFields] = useState();
   const [category, setCategory] = useState();
@@ -139,7 +139,6 @@ const CreatePin = ({ user }) => {
             )}
           </div>
         </div>
-
         <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
           <input
             type="text"
@@ -172,7 +171,7 @@ const CreatePin = ({ user }) => {
             placeholder="Add a destination to your Pin"
             className="outline-none text-lg sm:text-xl font-bold border-b-2 border-gray-200 p-2"
           />
-          <div class="flex flex-col">
+          <div className="flex flex-col">
             <div>
               <p className="mb-2 font-semibold text:lg sm:text-xl">
                 Choose Pin Category
@@ -188,6 +187,7 @@ const CreatePin = ({ user }) => {
                   <option
                     className="text-base border-0 outline-none capitalize bg-white text-black"
                     value={item.name}
+                    key={item.name}
                   >
                     {item.name}
                   </option>
