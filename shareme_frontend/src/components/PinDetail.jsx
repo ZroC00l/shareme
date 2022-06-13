@@ -62,6 +62,7 @@ const PinDetail = ({ user }) => {
           setComment("");
           setAddingComment(false);
         });
+      //window.location.reload();
     }
   };
 
@@ -84,7 +85,7 @@ const PinDetail = ({ user }) => {
             />
           </div>
           <div className="w-full p-5 flex-1 xl:min-w-620">
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-between">
               <div className="flex gap-2 items-center">
                 <a
                   className="bg-secondaryColor p-2 text-xl rounded-full flex items-center justify-center text-dark opacity-75 hover:opacity-100"
@@ -128,7 +129,7 @@ const PinDetail = ({ user }) => {
                     className="w-10 h-10 rounded-full cursor-pointer"
                   />
                   <div className="flex flex-col">
-                    <p className="font-bold">{item.postedBy.userName}</p>
+                    <p className="font-bold">{item.postedBy?.userName}</p>
                     <p>{item.comment}</p>
                   </div>
                 </div>
@@ -154,14 +155,14 @@ const PinDetail = ({ user }) => {
                 className="bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
                 onClick={addComment}
               >
-                {addingComment ? "Adding..." : "Added"}
+                {addingComment ? "Posting the comment..." : "Post"}
               </button>
             </div>
           </div>
         </div>
       )}
       {pins?.length > 0 && (
-        <h2 text-center font-bold text-2xl mt-8 mb-4>
+        <h2 className="text-center font-bold text-2xl mt-8 mb-4">
           More like this
         </h2>
       )}

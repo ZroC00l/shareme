@@ -1,14 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import {
-  Navbar,
-  CreatePin,
-  Search,
-  Feed,
-  PinDetail,
-  Category,
-} from "../components";
+import { Navbar, CreatePin, Search, Feed, PinDetail } from "../components";
 
 const Pins = ({ user }) => {
   /*This state is placed in Pins and not Search component, because it will be shared 
@@ -21,7 +14,7 @@ const Pins = ({ user }) => {
         <Navbar
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
-          user={user}
+          user={user & user}
         />
       </div>
       <div className="h-full">
@@ -30,9 +23,12 @@ const Pins = ({ user }) => {
           <Route path="/category/:categoryId" element={<Feed />} />
           <Route
             path="/pin-detail/:pinId"
-            element={<PinDetail user={user} />}
+            element={<PinDetail user={user && user} />}
           />
-          <Route path="/create-pin" element={<CreatePin user={user} />} />
+          <Route
+            path="/create-pin"
+            element={<CreatePin user={user & user} />}
+          />
           <Route
             path="/search"
             element={
