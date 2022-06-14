@@ -80,10 +80,9 @@ const Login = () => {
                   </button>
                 )}
                 theme="filled_blue"
-                auto_select="false"
                 onSuccess={responseGoogleSuccess}
                 onFailure={responseGoogleFailure}
-                cookiePolicy={"single_host_origin"}
+                cookiePolicy="single_host_origin"
               />
             </GoogleOAuthProvider>
           </div>
