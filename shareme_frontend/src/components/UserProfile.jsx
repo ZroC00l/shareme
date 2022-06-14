@@ -129,12 +129,13 @@ const UserProfile = () => {
             Saved
           </button>
         </div>
-        <div className="px-2">
-          <MansoryLayout createdPins={createdPins} />
-        </div>
-        {createdPins?.length === 0 && (
+        {createdPins?.length ? (
+          <div className="">
+            <MansoryLayout createdPins={createdPins} />
+          </div>
+        ) : (
           <div className="flex justify-center font-bold items-center w-full text-1xl mt-2">
-            There are no pins!
+            No Pins Found!
           </div>
         )}
       </div>

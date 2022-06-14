@@ -27,7 +27,7 @@ const Pins = ({ user }) => {
           />
           <Route
             path="/create-pin"
-            element={<CreatePin user={user & user} />}
+            element={<CreatePin user={user && user} />}
           />
           <Route
             path="/search"

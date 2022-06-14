@@ -11,11 +11,11 @@ import { client } from "../client";
 import logo from "../assets/logo.png";
 
 import { userQuery } from "../utils/data";
-import { fetchUser } from "../utils/fetchUser";
+//import { fetchUser } from "../utils/fetchUser";
 
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
   const scrollRef = useRef(null);
 
   //Pull user from local storage
@@ -24,7 +24,12 @@ const Home = () => {
       ? JSON.parse(localStorage.getItem("user"))
       : localStorage.clear();*/
 
-  const userInfo = fetchUser();
+  //const userInfo = fetchUser();
+
+  const userInfo =
+    localStorage.getItem("user") !== "undefined"
+      ? JSON.parse(localStorage.getItem("user"))
+      : localStorage.clear();
 
   //pull user from sanity client
   useEffect(() => {

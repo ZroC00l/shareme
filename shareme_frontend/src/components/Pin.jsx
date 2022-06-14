@@ -17,7 +17,11 @@ const Pin = ({ pin }) => {
 
   const { postedBy, image, _id, destination } = pin;
 
-  const user = fetchUser();
+  //const user = fetchUser();
+  const user =
+    localStorage.getItem("user") !== "undefined"
+      ? JSON.parse(localStorage.getItem("user"))
+      : localStorage.clear();
 
   let alreadySaved = pin?.save?.filter(
     (item) => item?.postedBy?._id === user?.jti
