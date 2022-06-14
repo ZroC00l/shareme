@@ -22,8 +22,8 @@ const nonActiveButtonStyles =
   "bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none";
 
 const UserProfile = () => {
-  const [user, setUser] = useState();
-  const [createdPins, setCreatedPins] = useState();
+  const [user, setUser] = useState(null);
+  const [createdPins, setCreatedPins] = useState(null);
   const [text, setText] = useState("Created");
   const [activeButton, setActiveButton] = useState("created");
 
@@ -130,11 +130,11 @@ const UserProfile = () => {
           </button>
         </div>
         {createdPins?.length ? (
-          <div className="">
+          <div className="px-2">
             <MansoryLayout createdPins={createdPins} />
           </div>
         ) : (
-          <div className="flex justify-center font-bold items-center w-full text-1xl mt-2">
+          <div className="flex justify-center font-bold items-center w-full text-xl mt-2">
             No Pins Found!
           </div>
         )}

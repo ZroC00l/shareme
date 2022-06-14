@@ -147,7 +147,7 @@ const CreatePin = ({ user }) => {
             placeholder="Add a title to your Pin"
             className="outline-none text-2xl sm:text-3xl font-bold border-b-2 border-gray-200 p-2"
           />
-          {/* {user && (
+          {user && (
             <div className="flex gap-2 mt-2 mb-2 items-center bg-white rounded-lg">
               <img
                 src={user.image}
@@ -156,7 +156,7 @@ const CreatePin = ({ user }) => {
               />
               <p className="font-bold">{user.userName}</p>
             </div>
-          )} This code creates a "0"==$0 on the front end,..... weird */}
+          )}
           <input
             type="text"
             value={about}
