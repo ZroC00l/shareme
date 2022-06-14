@@ -1,5 +1,9 @@
 export const categories = [
   {
+    name: "anime",
+    image: "https://flxt.tmsimg.com/assets/p11944313_b_v8_ab.jpg",
+  },
+  {
     name: "cars",
     image:
       "https://i.pinimg.com/750x/eb/47/44/eb4744eaa3b3ccd89749fa3470e2b0de.jpg",
@@ -29,11 +33,7 @@ export const categories = [
     image:
       "https://i.pinimg.com/236x/7d/ef/15/7def15ac734837346dac01fad598fc87.jpg",
   },
-  {
-    name: "nature",
-    image:
-      "https://i.pinimg.com/236x/b9/82/d4/b982d49a1edd984c4faef745fd1f8479.jpg",
-  },
+
   {
     name: "art",
     image:

@@ -73,7 +73,7 @@ const Pin = ({ pin }) => {
           <img
             className="rounded-lg w-full"
             alt="user-post"
-            src={urlFor(image).width(250).height(300).url()}
+            src={urlFor(image).width(200).url()}
           />
         )}
         {postHovered && (
