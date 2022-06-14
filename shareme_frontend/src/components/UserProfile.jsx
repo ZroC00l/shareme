@@ -132,7 +132,7 @@ const UserProfile = () => {
               Saved
             </button>
           </div>
-          {pins ? (
+          {pins?.length ? (
             <div className="px-2">
               <MansoryLayout pins={pins} />
             </div>
