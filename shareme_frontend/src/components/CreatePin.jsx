@@ -78,7 +78,7 @@ const CreatePin = ({ user }) => {
       };
       client.create(doc).then(() => {
         navigate("/");
-        window.location.reload(true); /// have to look into this metho call, window not refreshing after successful upload
+        //window.location.reload(true); /// have to look into this metho call, window not refreshing after successful upload
       });
     } else {
       setFields(true);
@@ -152,7 +152,7 @@ const CreatePin = ({ user }) => {
               <img
                 src={user.image}
                 alt="imagePostedByUser"
-                className=" w-10 h-10 rounded-full"
+                className="w-10 h-10 rounded-full"
               />
               <p className="font-bold">{user.userName}</p>
             </div>

@@ -52,7 +52,7 @@ const Pin = ({ pin }) => {
   };
 
   const deletePin = (id) => {
-    client.delete(id).them(() => {
+    client.delete(id).then(() => {
       window.location.reload();
     });
   };
