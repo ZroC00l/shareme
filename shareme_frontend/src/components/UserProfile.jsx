@@ -22,8 +22,8 @@ const nonActiveButtonStyles =
   "bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none";
 
 const UserProfile = () => {
-  const [user, setUser] = useState(null);
-  const [createdPins, setCreatedPins] = useState(null);
+  const [user, setUser] = useState("");
+  const [pins, setPins] = useState("");
   const [text, setText] = useState("Created");
   const [activeButton, setActiveButton] = useState("created");
 
@@ -47,13 +47,13 @@ const UserProfile = () => {
       const createdPinsQuery = userCreatedPinsQuery(userId);
 
       client.fetch(createdPinsQuery).then((data) => {
-        setCreatedPins(data);
+        setPins(data);
       });
     } else {
       const savedPinsQuery = userSavedPinsQuery(userId);
 
       client.fetch(savedPinsQuery).then((data) => {
-        setCreatedPins(data);
+        setPins(data);
       });
     }
   }, [text, userId]);
@@ -75,7 +75,7 @@ const UserProfile = () => {
           <div className="flex flex-col justify-center items-center">
             <img
               src="https://source.unsplash.com/1600x900/?nature,photography,technology"
-              alt="userpicture"
+              alt="bannerpicture"
               className="w-full h-370 2xl:h-510 shadow-lg object-cover"
             />
             <img
@@ -83,61 +83,65 @@ const UserProfile = () => {
               alt="userpicture"
               className="rounded-full w-20 h-20 -mt-10 shadow-xl object-cover"
             />
+            <h1 className="font-bold text-3xl text-center mt-3">
+              {user.userName}
+            </h1>
+            <div className="absolute top-0 z-1 right-0 p-2">
+              {userId === User.jti && (
+                <GoogleOAuthProvider
+                  clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
+                >
+                  <button
+                    type="button"
+                    onClick={logout}
+                    className="bg-white p-2 rounded-full cursor-pointer"
+                  >
+                    <AiOutlineLogout color="red" fontSize={25} />
+                  </button>
+                </GoogleOAuthProvider>
+              )}
+            </div>
           </div>
-          <h1 className="font-bold text-3xl text-center mt-3">
-            {user.userName}
-          </h1>
-          <div className="absolute top-0 z-1 right-0 p-2">
-            {userId === User.jti && (
-              <GoogleOAuthProvider
-                clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
-              >
-                <button onClick={logout}>
-                  <AiOutlineLogout color="red" fontSize={21} />
-                </button>
-              </GoogleOAuthProvider>
-            )}
+          <div className="text-center mb-7">
+            <button
+              type="button"
+              onClick={(e) => {
+                setText(e.target.textContent);
+                setActiveButton("created");
+              }}
+              className={`${
+                activeButton === "created"
+                  ? activeButtonStyles
+                  : nonActiveButtonStyles
+              }`}
+            >
+              Created
+            </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                setText(e.target.textContent);
+                setActiveButton("saved");
+              }}
+              className={`${
+                activeButton === "saved"
+                  ? activeButtonStyles
+                  : nonActiveButtonStyles
+              }`}
+            >
+              Saved
+            </button>
           </div>
+          {pins ? (
+            <div className="px-2">
+              <MansoryLayout pins={pins} />
+            </div>
+          ) : (
+            <div className="flex justify-center font-bold items-center w-full text-1xl mt-2">
+              No Pins Found!
+            </div>
+          )}
         </div>
-        <div className="text-center mb-7">
-          <button
-            type="button"
-            className={`${
-              activeButton === "created"
-                ? activeButtonStyles
-                : nonActiveButtonStyles
-            }`}
-            onClick={(e) => {
-              setText(e.target.textContent);
-              setActiveButton("created");
-            }}
-          >
-            Created
-          </button>
-          <button
-            type="button"
-            className={`${
-              activeButton === "saved"
-                ? activeButtonStyles
-                : nonActiveButtonStyles
-            }`}
-            onClick={(e) => {
-              setText(e.target.textContent);
-              setActiveButton("saved");
-            }}
-          >
-            Saved
-          </button>
-        </div>
-        {createdPins?.length ? (
-          <div className="px-2">
-            <MansoryLayout createdPins={createdPins} />
-          </div>
-        ) : (
-          <div className="flex justify-center font-bold items-center w-full text-xl mt-2">
-            No Pins Found!
-          </div>
-        )}
       </div>
     </div>
   );
